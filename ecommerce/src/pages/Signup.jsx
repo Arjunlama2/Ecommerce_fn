@@ -27,7 +27,6 @@ function Signup() {
         let body = formData
         try {
             const response = await axios.post("https://ecommerce-backend-2ltu.onrender.com/api/auth/signup", body)
-            console.log("this is resposnes", response)
             toast.success("Singup succes")
             navigate("/login")
 

@@ -2,6 +2,8 @@ import React from 'react'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import Header1 from '../components/Header1';
+import HOC from '../components/HOC';
 function Home() {
   var settings = {
     dots: true,
@@ -11,6 +13,11 @@ function Home() {
     slidesToScroll: 1
   };
   return (
+    <>
+  
+
+    <Header1/>
+   
     <Slider  {...settings}>
       <div >
        
@@ -30,6 +37,7 @@ function Home() {
       </div>
      
     </Slider>
+    </>
   );
 }
 
