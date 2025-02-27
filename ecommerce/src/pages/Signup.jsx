@@ -23,7 +23,6 @@ function Signup() {
 
     const handlesubmit = async () => {
 
-        console.log("This is the data", formData)
         let body = formData
         try {
             const response = await axios.post("https://ecommerce-backend-2ltu.onrender.com/api/auth/signup", body)

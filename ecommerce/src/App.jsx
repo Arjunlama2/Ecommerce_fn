@@ -6,28 +6,36 @@ import Discover from "./pages/Cart"
 import News from "./pages/News"
 import Pages from "./pages/Pages"
 import Login from "./pages/login"
-import Header1 from './components/Header1'
 import Signup from './pages/Signup'
 import HOC from './components/HOC'
 import Cart from './pages/Cart'
+import Layout from './components/Layout'
 
 function App() {
- const  navigate=useNavigate()
+  const navigate = useNavigate()
   return (
-    <div>
+   
+  <Routes>
+<Route path="/*"
+          element={
+            <Layout>
+              <Routes>
+                <Route index element={<Home />} />
+                <Route path="alltea" element={<AllTea />} />
+                <Route path='/' element={<HOC/>}>
+                <Route path="cart" element={<Cart />} />
+                <Route path="order" element={<div>order</div>} />
+                </Route>
+              </Routes>
+            </Layout>
+          }
+        />
+
     
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/alltea' element={<AllTea/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/signup' element={<Signup/>}/>
-      <Route  path="/" element={<HOC/>} >
-        <Route path='/cart' element={<Cart/>}/>s
-     </Route>
-
-
-       
-        </Routes></div>
+      <Route path='/login' element={<Login />} />
+      <Route path='/signup' element={<Signup />} />
+      </Routes>
+   
   )
 }
 

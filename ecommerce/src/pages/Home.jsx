@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Header1 from '../components/Header1';
 import HOC from '../components/HOC';
+import CartItem from '../components/CartItem';
 function Home() {
+  const [cartItems,setCartItes]=useState(0)
   var settings = {
     dots: true,
     infinite: true,
@@ -14,9 +16,6 @@ function Home() {
   };
   return (
     <>
-  
-
-    <Header1/>
    
     <Slider  {...settings}>
       <div >
@@ -37,6 +36,9 @@ function Home() {
       </div>
      
     </Slider>
+    <div className='mt-5'>
+  <CartItem setCartItes={setCartItes} cartItems={cartItems} />
+    </div>
     </>
   );
 }
