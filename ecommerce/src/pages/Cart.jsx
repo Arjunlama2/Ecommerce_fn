@@ -5,7 +5,7 @@ function Cart() {
   return (
 
     <div>
-      <Header1/>
+    
       <p>this is cart</p>
     </div>
   )

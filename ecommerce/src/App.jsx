@@ -12,7 +12,7 @@ import Cart from './pages/Cart'
 import Layout from './components/Layout'
 
 function App() {
-  const navigate = useNavigate()
+ 
   return (
    
   <Routes>
@@ -22,6 +22,10 @@ function App() {
               <Routes>
                 <Route index element={<Home />} />
                 <Route path="alltea" element={<AllTea />} />
+
+
+
+                {/* protected routes */}
                 <Route path='/' element={<HOC/>}>
                 <Route path="cart" element={<Cart />} />
                 <Route path="order" element={<div>order</div>} />
@@ -31,7 +35,7 @@ function App() {
           }
         />
 
-    
+    {/* headerless routes */}
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<Signup />} />
       </Routes>

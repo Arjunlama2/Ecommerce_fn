@@ -8,28 +8,46 @@ import axios from 'axios';
 
 
 function Header1(props) {
-  const token = localStorage.getItem('token')
-
   const [user, setUser] = useState()
 
-  const fetchdata = async () => {
-    const response = (await axios.get("http://localhost:8000/api/auth/me", {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    }))
-    return response
-  }
 
 
+ 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+
     if (token) {
-      const data = fetchdata()
-      console.log(data)
-      // setUser(data.user)
+      const fetchData = async () => {
+        console.log("fetching data")
+        try {
+          const response = await axios.get(
+            'https://ecommerce-backend-2ltu.onrender.com/api/auth/me',
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          console.log(response)
+          setUser(response.data)
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+          // Handle error, e.g., clear token if it's invalid
+          localStorage.removeItem('token');
+          setUser(null);
+        }
+      };
+
+     fetchData()
+    } else {
+      setUser(null);
+
     }
-  })
+
+
+
+  }, []);
 
   return (
     <div className='flex flex-row justify-center gap-[100px] bg-gray-100 h-[80px] items-center'>
@@ -49,8 +67,9 @@ function Header1(props) {
       <div className='flex felx-row  pl-[80px]'>
         {
           user ?
-            <div className='bg-red-600 h-8 text-center rounded-full aspect-square'>{
+            <div className='bg-[#20d7b8ee] h-8 text-center rounded-full aspect-square'>{
               <p  className='uppercase'>{user?.name?.split("")[0]}</p>
+              
             }
             </div> :
             <button 

@@ -5,21 +5,23 @@ import Slider from "react-slick";
 import Header1 from '../components/Header1';
 import HOC from '../components/HOC';
 import CartItem from '../components/CartItem';
+import { featuredProducts } from '../../data';
 function Home() {
   const [cartItems,setCartItes]=useState(0)
   var settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 1500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+
   };
   return (
     <>
-   
     <Slider  {...settings}>
       <div >
-       
         <img src='/image/1.webp' className='object-cover h-[600px] w-[1470px]'></img>
       </div>
       <div>
@@ -36,8 +38,15 @@ function Home() {
       </div>
      
     </Slider>
-    <div className='mt-5'>
-  <CartItem setCartItes={setCartItes} cartItems={cartItems} />
+    <div className='mt-5 flex  flex-wrap gap-5 mx-auto'>
+      {
+        featuredProducts.map((el,index)=>{
+          return <div key={index} className=''>
+             <CartItem data={el} />
+             </div>
+        })
+      }
+
     </div>
     </>
   );
