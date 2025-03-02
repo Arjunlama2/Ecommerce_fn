@@ -1,0 +1,1 @@
+export const URL="https://ecommerce-backend-2ltu.onrender.com"

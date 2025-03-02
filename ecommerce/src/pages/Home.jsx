@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Header1 from '../components/Header1';
 import HOC from '../components/HOC';
 import CartItem from '../components/CartItem';
-import { featuredProducts } from '../../data';
+import axios from 'axios';
+import { URL } from '../../constant';
+
 function Home() {
   const [cartItems,setCartItes]=useState(0)
+  const [products,setProducts]=useState([])
   var settings = {
     dots: true,
     infinite: true,
@@ -18,6 +21,16 @@ function Home() {
     autoplaySpeed: 2000,
 
   };
+
+  useEffect(()=>{
+ const fetchdata=async()=>{
+const response=await axios.get(`${URL}/api/products`)
+console.log("thsu is response",response.data)
+setProducts(response?.data?.data)
+ }
+
+ fetchdata()
+  },[])
   return (
     <>
     <Slider  {...settings}>
@@ -40,7 +53,7 @@ function Home() {
     </Slider>
     <div className='mt-5 flex  flex-wrap gap-5 mx-auto'>
       {
-        featuredProducts.map((el,index)=>{
+      products.map((el,index)=>{
           return <div key={index} className=''>
              <CartItem data={el} />
              </div>

@@ -1,10 +1,12 @@
 import React from 'react'
+import { URL } from '../../constant'
 
 function CartItem({ data }) {
+  console.log("this is datta",data)
   return (
     <div className='flex flex-col gap-2 items-center'>
 
-      <div className='h-[200px] w-[300px]  bg-transparent bg-cover bg-no-repeat ' style={{ backgroundImage: `url('${data.image}')` }}>
+      <div className='h-[200px] w-[300px]  bg-transparent bg-cover bg-no-repeat ' style={{ backgroundImage: `url('${URL}${data.image}')` }}>
 
 
       </div>
