@@ -24,13 +24,19 @@ function Home() {
 
   useEffect(()=>{
  const fetchdata=async()=>{
-const response=await axios.get(`${URL}/api/products`)
-console.log("thsu is response",response.data)
+const response=await axios.get(`${URL}/api/products?perPage=20`)
+// console.log("thsu is response",response.data)
 setProducts(response?.data?.data)
  }
 
  fetchdata()
   },[])
+
+  let featuredProducts=products.filter((el,index)=>{
+return index<=20
+  })
+
+
   return (
     <>
     <Slider  {...settings}>
@@ -53,7 +59,8 @@ setProducts(response?.data?.data)
     </Slider>
     <div className='mt-5 flex  flex-wrap gap-5 mx-auto'>
       {
-      products.map((el,index)=>{
+      featuredProducts
+      .map((el,index)=>{
           return <div key={index} className=''>
              <CartItem data={el} />
              </div>

@@ -10,6 +10,7 @@ import Signup from './pages/Signup'
 import HOC from './components/HOC'
 import Cart from './pages/Cart'
 import Layout from './components/Layout'
+import Details from './pages/Details'
 
 function App() {
  
@@ -22,6 +23,7 @@ function App() {
               <Routes>
                 <Route index element={<Home />} />
                 <Route path="alltea" element={<AllTea />} />
+                <Route path="details/:id" element={<Details />} />
 
 
 
