@@ -39,7 +39,8 @@ return index<=20
 
   return (
     <>
-    <Slider  {...settings}>
+    <Slider  {...settings} className='mt-14
+     md:mt-0'>
       <div >
         <img src='/image/1.webp' className='object-cover h-[600px] w-[1470px]'></img>
       </div>

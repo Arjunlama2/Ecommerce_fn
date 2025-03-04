@@ -6,7 +6,7 @@ function Layout({children}) {
     <div>
         <Header1/>
        
-        <div>
+        <div className='mt-15 md:mt-0'>
         {children}
         </div>
     </div>
