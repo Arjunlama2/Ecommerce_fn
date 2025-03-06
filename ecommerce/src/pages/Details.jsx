@@ -6,7 +6,7 @@ const {id}=useParams()
 console.log('this is id',id)
 
 useEffect(()=>{
-//fetch the 
+
 })
   return (
     <div className=' flex flex-col gap-5 mx-3 md:flex-row  md:gap-5 md:mx-8 lg:gap-8 lg:mx-16 '>
