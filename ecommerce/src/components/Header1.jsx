@@ -11,6 +11,7 @@ import axios from 'axios';
 function Header1(props) {
   const [user, setUser] = useState()
   const [navtoggle, setNavtoggle] = useState(false)
+  const [cartItemsNumber,setcartItemsNumber ] = useState(null)
 
   const Burger = () => {
     return <div className='z-[99999] md:hidden  fixed top-5 right-10 ' >
@@ -37,7 +38,7 @@ function Header1(props) {
 
       <p className='relative'>
         <Link to={"/cart"}>
-          <BsCartCheck /><span className='flex bg-red-600 rounded-full h-4 aspect-square items-center justify-center text-white absolute -top-2 -right-2'>{props?.cartItems}</span>
+          <BsCartCheck /><span className='flex bg-red-600 rounded-full h-4 aspect-square items-center justify-center text-white absolute -top-2 -right-2'>{cartItemsNumber}</span>
         </Link>
       </p>
 
@@ -60,8 +61,6 @@ function Header1(props) {
   }
 
   useEffect(() => {
-
-    
     const token = localStorage.getItem('token');
 
     if (token) {
@@ -96,6 +95,37 @@ function Header1(props) {
 
   }, []);
 
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const fetchDataforcart = async () => {
+        try {
+          const response = await axios.get(
+            'https://ecommerce-backend-2ltu.onrender.com/api/cart',
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          )
+          
+   
+          setcartItemsNumber(response.data?.length)
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+          // Handle error, e.g., clear token if it's invalid
+          
+        }
+      };
+
+      fetchDataforcart()
+    } 
+
+
+  }, []);
 
 
 

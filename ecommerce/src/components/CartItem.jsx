@@ -2,30 +2,36 @@ import React from 'react'
 import { URL } from '../../constant'
 import { Link } from 'react-router'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 
 
 const handleaddtoCart=async(id)=>{
 
   const token =localStorage.getItem("token")
-  const respose=await axios.post(`${URL}/api/cart`,{
-    id
-  }, 
-  {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
+  try{
+    const respose=await axios.post(`${URL}/api/cart`,{
+      id
+    }, 
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+  
     },
-
-  },
-)
+    toast("Added to cart")
+  )
+  }catch(err){
+    toast.error("Failed to add cart")
+  }
+ 
 }
 
 
 function CartItem({ data }) {
 
 
-  console.log("this is datta",data)
   return (
     <Link to={`/details/${data._id}`}>
     <div className='flex flex-col gap-2 items-center'>
