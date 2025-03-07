@@ -5,8 +5,27 @@ import axios from 'axios';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import useFetch from '../useFetch';
+import { URL } from '../../constant';
 const Card = ({ data }) => {
   const [quantity, setquantity] = useState(1)
+
+
+const handleOrder=async(id)=>{
+ 
+ const body={
+  products:[{
+    _id:id,
+    quantity:quantity
+  },]
+ }
+  
+ 
+const response=await axios.post(`${URL}/api/orders`,body)
+console.log(response)
+}
+
+
+
   return <div className='flex felx-row  mt-[30px] '>
     <img src='/image/2.webp' className='h-[250px] aspect-square ml-[100px] ' />
     <div className='flex flex-col gap-[15px] border-[1px] border-gray-400 w-[500px] pl-[30px]'>
@@ -23,7 +42,13 @@ const Card = ({ data }) => {
         }
         <FaPlus onClick={() => setquantity(quantity + 1)} />
       </div>
-      <button className='border-[1px] border-black h-[30px] w-[100px]  bg-green-500 rounded-[8px]  border-hidden' >Order now</button>
+      <button className='border-[1px] border-black h-[30px] w-[100px]  bg-green-500 rounded-[8px]  border-hidden'
+      
+      onClick={()=>{
+        handleOrder(data?.product_id?._id)
+      }}
+      
+      >Order now</button>
     </div>
   </div>
 }
