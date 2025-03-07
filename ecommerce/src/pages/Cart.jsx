@@ -4,6 +4,7 @@ import { FaPlus } from "react-icons/fa6";
 import axios from 'axios';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import useFetch from '../useFetch';
 const Card = ({ data }) => {
   const [quantity, setquantity] = useState(1)
   return <div className='flex felx-row  mt-[30px] '>
@@ -28,53 +29,28 @@ const Card = ({ data }) => {
 }
 
 function Cart() {
-  const [cartItems, setcartItems] = useState([])
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      const fetchDataforcart = async () => {
-        try {
-          const response = await axios.get(
-            'https://ecommerce-backend-2ltu.onrender.com/api/cart',
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-              },
-            }
-          )
-
-
-          setcartItems(response.data)
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-          // Handle error, e.g., clear token if it's invalid
-
-        }
-      };
-
-      fetchDataforcart()
-    }
-
-
-  }, []);
-
+  const { data, loading } = useFetch("cart")
+  // console.log("this is data",data)
+  const cartItems = data ? data: []
+// console.log("this is cart items",cartItems)
   return (
     <div className='flex flex-row'>
       <div className='flex flex-row gap-[10px] md:flex-col'>
 
-
         {
-          cartItems.length>1 ?
-            cartItems.map((el) => {
-              return <Card key={el._id} data={el} />
-            }) :
+          loading && <div className='w-[500px] pl-[30px]'>
 
-            <div className='w-[500px] pl-[30px]'>
+            <Skeleton count={5} />
+          </div>
 
-              <Skeleton count={5} />
-            </div>
+        }
+        {
+          cartItems  &&
+          cartItems.map((el) => {
+            return <Card key={el._id} data={el} />
+          })
+
+
         }
 
 

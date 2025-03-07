@@ -7,10 +7,11 @@ import HOC from '../components/HOC';
 import CartItem from '../components/CartItem';
 import axios from 'axios';
 import { URL } from '../../constant';
+import useFetch from '../useFetch';
 
 function Home() {
   const [cartItems,setCartItes]=useState(0)
-  const [products,setProducts]=useState([])
+
   var settings = {
     dots: true,
     infinite: true,
@@ -21,19 +22,11 @@ function Home() {
     autoplaySpeed: 2000,
 
   };
+const {data}=useFetch("products")
 
-  useEffect(()=>{
- const fetchdata=async()=>{
-const response=await axios.get(`${URL}/api/products?perPage=20`)
-// console.log("thsu is response",response.data)
-setProducts(response?.data?.data)
- }
-
- fetchdata()
-  },[])
-
-  let featuredProducts=products.filter((el,index)=>{
-return index<=20
+const products=data?data.data:[]
+  const featuredProducts=products?.filter((el,index)=>{
+return index<=6
   })
 
 
@@ -60,8 +53,7 @@ return index<=20
     </Slider>
     <div className='mt-5 flex  flex-wrap gap-5 mx-auto'>
       {
-      featuredProducts
-      .map((el,index)=>{
+      featuredProducts?.map((el,index)=>{
           return <div key={index} className=''>
              <CartItem data={el} />
              </div>
